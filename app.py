@@ -309,6 +309,7 @@ class AudioTranscriberApp:
                 self.events.put(("append", line + "\n"))
 
             self.transcript_text = "\n".join(lines).strip() + "\n"
+            self.output_path = self._unique_path(self.output_path)
             self.output_path.write_text(self.transcript_text, encoding="utf-8")
             self.events.put(("done", str(self.output_path)))
         except Exception as exc:
