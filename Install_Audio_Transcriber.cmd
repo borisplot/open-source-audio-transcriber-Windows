@@ -51,6 +51,7 @@ function Get-PythonCommand {
     return $null
 }
 
+try {
 Write-Host "Audio Transcriber Installer" -ForegroundColor Green
 Write-Host "This installs a local drag-and-drop transcription app using faster-whisper."
 Write-Host "Internet is required the first time to install packages and download the base model."
@@ -127,4 +128,17 @@ Write-Host ""
 Write-Host "Installed successfully." -ForegroundColor Green
 Write-Host "Desktop shortcut: $DesktopShortcut"
 Write-Host "Install folder: $InstallRoot"
+} catch {
+    Write-Host ""
+    Write-Host "=========================================" -ForegroundColor Red
+    Write-Host "INSTALLATION FAILED" -ForegroundColor Red
+    Write-Host "=========================================" -ForegroundColor Red
+    Write-Host "Error Details:" -ForegroundColor Yellow
+    Write-Host $_.Exception.Message
+    Write-Host ""
+    Write-Host "Line number: $($_.InvocationInfo.ScriptLineNumber)"
+    Write-Host "Command: $($_.InvocationInfo.Line.Trim())"
+    Write-Host "=========================================" -ForegroundColor Red
+    throw $_
+}
 
