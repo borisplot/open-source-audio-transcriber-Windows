@@ -71,7 +71,8 @@ if (-not $python) {
     $winget = Get-Command winget -ErrorAction SilentlyContinue
     if ($winget) {
         Write-Host "Python 3.10-3.12 was not found. Installing Python 3.12 with winget..."
-        winget install --id Python.Python.3.12 --source winget --accept-package-agreements --accept-source-agreements
+        winget install --id Python.Python.3.12 --source winget --accept-package-agreements --accept-source-agreements --override "PrependPath=1"
+        $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") + ";" + (Join-Path $env:LOCALAPPDATA "Programs\Python\Python312") + ";" + "C:\Program Files\Python312"
         $python = Get-PythonCommand
     }
 }
