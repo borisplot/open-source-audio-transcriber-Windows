@@ -15,6 +15,8 @@ exit /b 0
 
 __AUDIO_TRANSCRIBER_PS_PAYLOAD__
 $ErrorActionPreference = "Stop"
+$LogPath = Join-Path ([Environment]::GetFolderPath("Desktop")) "AudioTranscriber_Install_Log.txt"
+Start-Transcript -Path $LogPath -Force
 
 function Write-Step($Message) {
     Write-Host ""
